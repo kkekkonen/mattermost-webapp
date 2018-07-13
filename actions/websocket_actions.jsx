@@ -9,6 +9,7 @@ import {
     getChannelAndMyMember,
     getChannelStats,
     viewChannel,
+    markChannelAsRead,
 } from 'mattermost-redux/actions/channels';
 import {setServerVersion} from 'mattermost-redux/actions/general';
 import {getPosts, getProfilesAndStatusesForPosts, getCustomEmojiForReaction} from 'mattermost-redux/actions/posts';
@@ -646,8 +647,6 @@ function handleChannelDeletedEvent(msg) {
         browserHistory.push(teamUrl + '/channels/' + Constants.DEFAULT_CHANNEL);
     }
     dispatch({type: ChannelTypes.RECEIVED_CHANNEL_DELETED, data: {id: msg.data.channel_id, team_id: msg.broadcast.team_id}}, getState);
-    loadChannelsForCurrentUser();
-    TeamActions.getMyTeamUnreads()(dispatch, getState);
 }
 
 function handlePreferenceChangedEvent(msg) {
